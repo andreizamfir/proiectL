@@ -1,0 +1,28 @@
+<div>
+    <table id="tabelAngajati" align="center">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nume angajat</th>
+            <th>Email</th>
+            <th>Pozitia detinuta</th>
+            <th>Motiv schimbare in functie</th>
+            <th>Data angajarii</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="employee in employees">
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.type }}</td>
+            <td>{{ employee.modificare }}</td>
+            <td>{{ employee.createdAt }}</td>
+            <td><button class="btn btn-success" ng-click="promovare(employee.id)">Promovare</button></td>
+            <td><button class="btn btn-danger" ng-click="retrogradare(employee.id)">Retrogradare</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<button class="btn btn-warning" ng-click="inapoi('/managerPage')">Inapoi</button>
