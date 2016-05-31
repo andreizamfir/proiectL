@@ -1,0 +1,24 @@
+<table align="center" class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Hostname</th>
+        <th>Ip</th>
+        <th>Type</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="device in devices">
+        <td>{{ device.id }}</td>
+        <td>{{ device.hostname }}</td>
+        <td>{{ device.ip }}</td>
+        <td>{{ device.type }}</td>
+        <td>{{ device.status }}</td>
+        <td><button class="btn btn-primary" ng-click="config('/configuratieDispozitiv', device.id)">Configuratie ios</button></td>
+        <td><button class="btn btn-primary" ng-click="interface('/interfeteDispozitiv', device.id)">Interfete</button></td>
+    </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-info" ng-click="inapoi('/login')">Inapoi</button>

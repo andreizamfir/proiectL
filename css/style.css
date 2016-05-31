@@ -8,9 +8,9 @@ body {
 	color: #666;
 }
 
-table {
-color: #333; /* Lighten up font color */
-font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+/*table {
+color: #333;
+font-family: Helvetica, Arial, sans-serif; 
 width: 80%;
 border: none;
 border-collapse: collapse; 

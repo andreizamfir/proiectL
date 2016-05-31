@@ -2,11 +2,16 @@ var express = require("express")
 var bodyParser = require("body-parser")
 var Sequelize = require("sequelize")
 var request = require("request")
+var rpromise = require("request-promise")
+var requestify = require("requestify")
 
 var app = express()
 
 app.use(express.static(__dirname))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({     
+  extended: true
+}))
 
 var sequelize = new Sequelize('DB','root', '', {dialect : 'mysql', port : 3306})
 var Employee = sequelize.define('employee', {
@@ -40,7 +45,6 @@ var Employee = sequelize.define('employee', {
         type:Sequelize.STRING
     }
 })
-
 var Command = sequelize.define('command', {
     id :{
         primaryKey: true,
@@ -60,7 +64,6 @@ var Command = sequelize.define('command', {
         allowNull : false
     }
 })
-
 var Device = sequelize.define('device', {
     id : {
         primaryKey : true,
@@ -83,7 +86,6 @@ var Device = sequelize.define('device', {
         type : Sequelize.STRING
     }
 })
-
 var Interface = sequelize.define('interface', {
     type : {
         type : Sequelize.STRING,
@@ -104,7 +106,6 @@ var Interface = sequelize.define('interface', {
         type : Sequelize.STRING
     }
 })
-
 var Host = sequelize.define('host', {
     name : {
         type : Sequelize.STRING,
@@ -131,6 +132,8 @@ Command.belongsTo(Employee, {foreignKey : 'employeeId'})
 Device.hasMany(Interface, {foreignKey: 'deviceId'})
 Interface.belongsTo(Device, {foreignKey: 'deviceId'})
 
+
+//TODO de modificat statusurile requesturilor, in concordanta
 app.get('/createDB', function(req, res){
     sequelize
         .sync({force : true})
@@ -143,47 +146,68 @@ app.get('/createDB', function(req, res){
         })
 })
 
-app.get('/insertDevices', function(req, res){
-  request({
-    url: 'https://sandboxapic.cisco.com:9443/api/v1/network-device',
-    json: true,
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-Auth-Token': 'ST-3640-sL1JfSyq1v2HAtfIa2My-cas'
+var requestTicket = {
+        encoding: 'utf8',
+        uri: 'https://sandboxapic.cisco.com:9443/api/v1/ticket',
+        json: true,
+        method: 'POST',
+        json: {
+            "username" : "admin",
+            "password" : "C!sc0123"
+        }
     }
-    }, function (error, response, body) {
-        var resp = body['response']
-        console.log(resp)
-        resp.forEach(function(entry){
-            console.log(entry['id'] + ', ' + entry['hostname'] + ', ' + entry['managementIpAddress'] + ', ' + entry['type'] + ', ' + entry['reachabilityStatus'])
+
+app.get('/insertDevices', function(req, res){
+
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
             
-            var id = entry['id']
-            var hostname = entry['hostname']
-            var ip = entry['managementIpAddress']
-            var type = entry['type']
-            var status = entry['reachabilityStatus']
+            request({
+                url: 'https://sandboxapic.cisco.com:9443/api/v1/network-device',
+                json: true,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Auth-Token': ticket
+                }
+            }, function (error, response, body) {
+                    var resp = body['response']
+                    resp.forEach(function(entry){
             
-            var text = '{ "id" : "' + id + '", "hostname" : "' + hostname + '", "ip" : "' + ip + '", "type" : "' + type + '", "status" : "' + status + '"}'
+                    var id = entry['id']
+                    var hostname = entry['hostname']
+                    var ip = entry['managementIpAddress']
+                    var type = entry['type']
+                    var status = entry['reachabilityStatus']
+                
+                    var text = '{ "id" : "' + id + '", "hostname" : "' + hostname + '", "ip" : "' + ip + '", "type" : "' + type + '", "status" : "' + status + '"}'
             
-            var device = JSON.parse(text)
+                    var device = JSON.parse(text)
             
-            Device 
-                .create(device)
-                .then(function(){
-                    res.status(200)
-                })
-                .catch(function(error){
-                    console.warn(error)
-                    res.status(404)
-                })
+                    Device 
+                        .create(device)
+                        .then(function(){
+                            res.status(200).send('inserted')
+                        })
+                        .catch(function(error){
+                            console.warn(error)
+                            res.status(404).send('not inserted')
+                        })
+                    })
+                }
+            )
+            res.status(200).send("ok")
         })
-    })  
+        .catch(function(error){
+            console.log(error).send("couldn't get token")
+        })
 })
 
-app.get('/getDevices', function(req, res){
+app.get('/devices', function(req, res){
     Device
-        .findAll({attributes: ['id', 'hostname', 'ip', 'type', 'vendor']})
+        .findAll({attributes: ['id', 'hostname', 'ip', 'type', 'status']})
         .then(function(devices){
             res.status(200).send(JSON.stringify(devices, null, 4))
         })
@@ -193,19 +217,227 @@ app.get('/getDevices', function(req, res){
         })
 })
 
-
-//TODO momentan e in regula, trebuie facuta legatura intre device si interfata lui
-app.get('/getDeviceInterface/:id', function(req, res){
+app.get('/device/:id/configuration', function(req, res){
     var id = req.params.id
-    request({
-    url: "https://sandboxapic.cisco.com/api/v0/interface/network-device/" + id,
-    json: true
-    }, function (error, response, body) {
-        var resp = body['response']
-        
-        console.log(resp)
-        res.status(200).send(resp)
-    })  
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var resp = ""
+            var configuratie = new Object()
+            configuratie.response = "Nu exista configuratie"
+            
+            request({
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/network-device/' + id + '/config',
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            }
+            }, function (error, response, body) {
+                if(body){
+                    resp = body['response']
+                    if(resp)
+                        configuratie.response = resp
+                }
+                res.status(200).send(configuratie)
+            }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })
+})
+
+app.get('/device/:id/interfaces', function(req, res){
+    var id = req.params.id
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var resp = ""
+            var interfata = new Object()
+            
+            request({
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/interface/network-device/' + id,
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            }
+            }, function (error, response, body) {
+                resp = body['response']
+                if(resp['errorCode'])
+                    interfata.interfete = "Nu exista interfete disponibile"
+                else
+                    interfata.interfete = resp
+                console.log(interfata)
+                res.status(200).send(interfata)
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })
+})
+
+app.get('/hosts', function(req, res){
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var resp = ""
+            
+            request({
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/host/',
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            }
+            }, function (error, response, body) {
+                resp = body['response']
+                res.status(200).send(resp)
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })    
+})
+
+app.post('/getRuta', function(req, res){
+    var ip = req.body
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var id = ""
+            var verificare = ""
+            var pathId
+            var trackId
+            var obiect = new Object()
+            
+            // function verificaIP(){
+            //     if(ip.sourceIP[2]=="7" || ip.destIP[2]=="7"){
+                    
+            //     }
+            // }
+            
+            rpromise({
+                encoding: 'utf8',
+                uri: 'https://sandboxapic.cisco.com:9443/api/v1/flow-analysis',
+                json: true,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Auth-Token': ticket 
+                },
+                json: {
+                "sourceIP" : ip.sourceIP,
+                "destIP" : ip.destIP
+                }
+            }, function(error, response, body){
+                var resp = body['response']
+                id = resp['taskId']
+                }
+            )
+                .then(function(body){
+                   
+                    rpromise({
+                        encoding: 'utf8',
+                        uri: 'https://sandboxapic.cisco.com:9443/api/v1/task/' + id,
+                        json: true,
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Auth-Token': ticket 
+                        }
+                    }, function(error, response, body){
+                        verificare = body['response']
+                        
+                        var i = 0, howManyTimes = 90;
+                        
+                        function f() {
+                            pathId = verificare['endTime']
+                            //console.log("EndTime: " + pathId);
+                            i++;
+                            if(pathId==undefined && i < howManyTimes ){
+                                setTimeout(
+                                    function(){
+                                        rpromise({
+                                        encoding: 'utf8',
+                                        uri: 'https://sandboxapic.cisco.com:9443/api/v1/task/' + id,
+                                        json: true,
+                                        method: 'GET',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-Auth-Token': ticket 
+                                        }  
+                                    },function(error, response,body){
+                                        verificare = body['response']
+                                        console.log("Task id: " + id + ", iteratia " + i)
+                                        f()
+                                    }
+                                    )
+                                    }, 2000 );
+                            }
+                            else{
+                                trackId = verificare['progress']
+                                //var failureReason
+                                console.log(verificare)
+                                //console.log("track id " + trackId)
+                                var isError = verificare['isError']
+                                
+                                if(isError){
+                                    obiect.failureReason = verificare['failureReason']
+                                    console.log("Failure reason: " + obiect.failureReason)
+                                    //obiect.failureReason = failureReason
+                                }
+                                if(trackId.indexOf("InternalError")!=-1){
+                                    obiect.failureReason = "Nu se poate prelua"
+                                } else {
+                                    rpromise({
+                                        encoding: 'utf8',
+                                        uri: 'https://sandboxapic.cisco.com:9443/api/v1/flow-analysis/' + trackId,
+                                        json: true,
+                                        method: 'GET',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-Auth-Token': ticket 
+                                        }
+                                    }, function(error, response, body){
+                                        var elemente = body['response']
+                                        var request = elemente['request']
+                                        obiect.elemente = elemente['networkElementsInfo']
+                                        obiect.failureReason = request['failureReason']
+                                        
+                                        console.log("1. Obiectul: " + obiect.failureReason + ", " + obiect.elemente)
+                                        //res.status(200).send(obiect)
+                                        }
+                                    )
+                                    .then(function(body){
+                                        
+                                        console.log("2. Obiectul: " + obiect.failureReason + ", " + obiect.elemente)
+                                        res.status(200).send(obiect)
+                                    })
+                                }
+                            }
+                        }
+                        f()
+                    }
+                    )
+                })
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })
 })
 
 app.get('/employees', function(req, res){
@@ -222,8 +454,6 @@ app.get('/employees', function(req, res){
 
 app.post('/employees', function(req, res){
     var e = req.body
-    console.log(e)
-    console.log(e.name)
     Employee
         .create(e)
         .then(function(){
@@ -235,20 +465,44 @@ app.post('/employees', function(req, res){
         })
 })
 
-// app.put('/employees/:name', function(req, res){
-//     Employee
-//         .find({where : {name : req.params.name}})
-//         .then(function(employee){
-//             employee.updateAttributes(req.body)
-//         })
-//         .then(function(){
-//             res.status(200).send('updated')
-//         })
-//         .catch(function(error){
-//             console.warn(error)
-//             res.status(404).send('not found')
-//         })
-// })
+app.get('/employees/:id', function(req, res){
+    var id = req.params.id
+    Employee
+        .find({where:{id:id}, attributes:['id', 'name', 'password', 'email', 'type']})
+        .then(function(employee){
+            res.status(200).send(employee)
+        }).catch(function(error){
+            console.warn(error)
+            res.send(500).send('not created')
+        })
+})
+
+app.get('/employee/:name', function(req, res){
+    var name = req.params.name
+    Employee
+        .find({where:{name:name}, attributes:['id', 'name', 'password', 'email', 'type']})
+        .then(function(employee){
+            res.status(200).send(employee)
+        }).catch(function(error){
+            console.warn(error)
+            res.send(500).send('not created')
+        })
+})
+
+app.put('/employee/:name', function(req, res){
+    Employee
+        .find({where : {name : req.params.name}})
+        .then(function(employee){
+            employee.updateAttributes(req.body)
+        })
+        .then(function(){
+            res.status(200).send('updated')
+        })
+        .catch(function(error){
+            console.warn(error)
+            res.status(404).send('not found')
+        })
+})
 
 app.put('/employees/:id', function(req, res){
     Employee
@@ -281,7 +535,7 @@ app.delete('/employees/:nume', function(req, res){
         })
 })
 
-app.delete('/employees/:id', function(req, res){
+app.delete('/employee/:id', function(req, res){
     var id = req.params.id
     Employee
         .find({where : {id : id}})
@@ -294,30 +548,6 @@ app.delete('/employees/:id', function(req, res){
         .catch(function(error){
             console.warn(error)
             res.status(500).send('not updated')
-        })
-})
-
-app.get('/employees/:id', function(req, res){
-    var id = req.params.id
-    Employee
-        .find({where:{id:id}, attributes:['id', 'name', 'password', 'email', 'type']})
-        .then(function(employee){
-            res.status(200).send(employee)
-        }).catch(function(error){
-            console.warn(error)
-            res.send(500).send('not created')
-        })
-})
-
-app.get('/employee/:name', function(req, res){
-    var name = req.params.name
-    Employee
-        .find({where:{name:name}, attributes:['id', 'name', 'password', 'email', 'type']})
-        .then(function(employee){
-            res.status(200).send(employee)
-        }).catch(function(error){
-            console.warn(error)
-            res.send(500).send('not created')
         })
 })
 

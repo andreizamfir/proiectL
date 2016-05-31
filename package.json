@@ -4,6 +4,8 @@
         "sequelize":"*",
         "body-parser":"*",
         "mysql":"*",
-        "request" : "*"
+        "request" : "*",
+        "request-promise" : "*",
+        "requestify" : "*"
     }
 }
