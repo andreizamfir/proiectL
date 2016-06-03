@@ -4,7 +4,21 @@ var Sequelize = require("sequelize")
 var request = require("request")
 var rpromise = require("request-promise")
 var requestify = require("requestify")
+// (function () {
+//   'use strict'
 
+//   var env = require('jsdom').env
+//     , html = '<html><body><h1>Hello World!</h1><p class="hello">Heya Big World!</body></html>'
+
+//   // first argument can be html string, filename, or url
+//   env(html, function (errors, window) {
+//     console.log(errors)
+
+//     var $ = require('jquery')(window)
+
+//     console.log($('.hello').text())
+//   })
+// }())
 var app = express()
 
 app.use(express.static(__dirname))
@@ -64,6 +78,7 @@ var Command = sequelize.define('command', {
         allowNull : false
     }
 })
+//TODO de pus atributele uptime, mac address, software version, device family, role, serial number, last updated time
 var Device = sequelize.define('device', {
     id : {
         primaryKey : true,
@@ -152,8 +167,8 @@ var requestTicket = {
         json: true,
         method: 'POST',
         json: {
-            "username" : "admin",
-            "password" : "C!sc0123"
+            "username" : "devnetuser",
+            "password" : "Cisco123!"
         }
     }
 
@@ -275,7 +290,6 @@ app.get('/device/:id/interfaces', function(req, res){
                     interfata.interfete = "Nu exista interfete disponibile"
                 else
                     interfata.interfete = resp
-                console.log(interfata)
                 res.status(200).send(interfata)
                 }
             )
@@ -438,6 +452,179 @@ app.post('/getRuta', function(req, res){
         .catch(function(error){
             res.status(404).send("couldn't get token")
         })
+})
+
+app.get('/gamePolitici', function(req, res){
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var resp = ""
+            
+            request({
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/policy/tag',
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            }
+            }, function (error, response, body) {
+                resp = body['response']
+                res.status(200).send(resp)
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })  
+})
+
+app.post('/adaugaPolitica', function(req, res){
+    var nume = req.body.gamaPolitica
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            
+            request({
+            encoding: 'utf8',
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/policy/tag',
+            json: true,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            },
+            json: {
+                'policyTag' : nume
+            }
+            }, function (error, response, body) {
+                res.status(200).send('adaugata')
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })  
+})
+
+app.post('/asocierePolitica', function(req, res){
+    var numePolitica = req.body.numePolitica
+    var idDispozitiv = req.body.idDispozitiv
+    
+    var tag = {
+        "policyTag" : numePolitica,
+        "networkDevices" : [{
+            "deviceId" : idDispozitiv
+        }]
+    }
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            
+            request({
+            encoding: 'utf8',
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/policy/tag/association',
+            json: true,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            },
+            json : tag
+            }, function (error, response, body) {
+                //console.log(JSON.stringify(eval("(" + str + ")")))
+                res.status(200).send('adaugat')
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })
+})
+
+app.get('/dispozitivePolitica/:tag', function(req, res){
+    var tag = req.params.tag
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var resp = ""
+            
+            request({
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/policy/tag/association',
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            }
+            }, function (error, response, body) {
+                resp = body['response']
+                resp.forEach(function(entry){
+                    if(entry['policyTag']==tag){
+                        var networkDevices = entry['networkDevices']
+                        res.status(200).send(networkDevices)
+                    }
+                })
+                
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        })
+})
+
+app.get('/politici/:tag', function(req, res){
+    var tag = req.params.tag
+    
+    rpromise(requestTicket)
+        .then(function(body){
+            var response = body['response']
+            var ticket = response['serviceTicket']
+            var resp = ""
+            
+            request({
+            url: 'https://sandboxapic.cisco.com:9443/api/v1/policy/',
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': ticket
+            }
+            }, function (error, response, body) {
+                resp = body['response']
+                var politici = new Object()
+                politici.relevant = new Array()
+                politici.irrelevant = new Array()
+                politici.default = new Array()
+                
+                resp.forEach(function(entry){
+                    
+                    if(entry['policyScope']==tag){
+                        var actionProperty = entry['actionProperty'] 
+                        if(actionProperty['relevanceLevel']=="Business-Relevant")
+                            politici.relevant.push(entry)
+                        else
+                            if(actionProperty['relevanceLevel']=="Business-Irrelevant")
+                                politici.irrelevant.push(entry)
+                            else
+                                politici.default.push(entry)
+                    }
+                })
+                res.status(200).send(politici)
+                }
+            )
+        })
+        .catch(function(error){
+            res.status(404).send("couldn't get token")
+        }) 
 })
 
 app.get('/employees', function(req, res){

@@ -1,16 +1,15 @@
-<table align="center" class="table table-hover">
+<table align="center" class="table table-hover" style="width:auto">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Hostname</th>
-        <th>Ip</th>
-        <th>Type</th>
+        <th>Nume</th>
+        <th>Adresa IP</th>
+        <th>Tip</th>
         <th>Status</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="device in devices">
-        <td>{{ device.id }}</td>
+        <td style="display: none">{{ device.id }}</td>
         <td>{{ device.hostname }}</td>
         <td>{{ device.ip }}</td>
         <td>{{ device.type }}</td>
@@ -21,4 +20,46 @@
     </tbody>
 </table>
 
+
+<h1 id="listaPolitici" style="display: none">Lista politicilor</h1>
+<div id="politici" style="display: none">
+    <table align="center" class="table table-hover" style="width:auto">
+        <thead>
+        <tr>
+            <th>Numele politicii</th>
+            <th>Dispozitivele in care este introdusa</th>
+            <th>Structura politicii</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="politica in politici">
+            <td>{{ politica.policyTag }}</td>
+            <td><button class="btn btn-info" ng-click="dispozitivePolitica('/dispozitivePolitica', politica.policyTag)">Dispozitive</button></td>
+            <td><button class="btn btn-info" ng-click="structuraPolitica('/politica', politica.policyTag)">Aplicatii</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="text" ng-model="politica.gamaPolitica" placeholder="Nume politica"/>
+    <button class="btn btn-success" ng-click="adauga(politica)">Adauga politica</button>
+</div>
+
+<br></br>
+
+<div id="asociere" style="display: none">
+    <!--<input type="text" ng-model="politica.numePolitica" placeholder="Nume politica"/>-->
+    
+    <select ng-model="politica.numePolitica" required>
+        <option value="" disabled>Politica</option>
+        <option ng-repeat="politica in politici" value="{{politica.policyTag}}">{{ politica.policyTag }}</option>
+    </select>
+    <select ng-model="politica.idDispozitiv" required>
+        <option value="" disabled>Dispozitiv</option>
+        <option ng-repeat="device in devices" value="{{device.id}}">{{ device.ip }}</option>
+    </select>
+    <!--<input type="text" ng-model="politica.idDispozitiv" placeholder="Id dispozitiv"/>-->
+<button class="btn btn-info" ng-click="adaugaScopeDispozitiv(politica)">Adauga politica in dispozitiv</button>
+</div>
+
+<div>
 <button class="btn btn-info" ng-click="inapoi('/login')">Inapoi</button>
+</div>

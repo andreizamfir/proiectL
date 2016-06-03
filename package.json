@@ -1,11 +1,13 @@
 {
-    "dependencies":{
-        "express":"*",
-        "sequelize":"*",
-        "body-parser":"*",
-        "mysql":"*",
-        "request" : "*",
-        "request-promise" : "*",
-        "requestify" : "*"
-    }
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "jquery": "^2.2.4",
+    "jsdom": "^3.1.2",
+    "mysql": "*",
+    "request": "*",
+    "request-promise": "*",
+    "requestify": "*",
+    "sequelize": "*"
+  }
 }

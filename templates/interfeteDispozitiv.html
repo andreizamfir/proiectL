@@ -1,59 +1,58 @@
 <div id="interfete">
-    <table id="tabelInterfete" align="center" class="table table-hover">
+    <table id="tabelInterfete" align="center" class="table table-hover" style="width:auto">
     <thead>
     <tr>
-        <th>Port mode</th>
-        <th>Port type</th>
-        <th>Interface type</th>
+        <th>Nume</th>
+        <th>Adresa MAC</th>
         <th>Status</th>
-        <th>Last updated</th>
-        <th>Port name</th>
-        <th>Ipv4 address</th>
-        <th>Ipv4 mask</th>
-        <th>Isis support</th>
-        <th>Mapped physical interface id</th>
-        <th>Mapped physical interface name</th>
-        <th>Native vlan id</th>
-        <th>Ospf support</th>
-        <th>PID</th>
-        <th>Serial no</th>
-        <th>Series</th>
-        <th>Device id</th>
         <th>Duplex</th>
-        <th>Vlan id</th>
-        <th>If index</th>
-        <th>Speed</th>
-        <th>Mac address</th>
-        <th>Instance uuid</th>
-        <th>Id</th>
+        <!--<th>Port mode</th>-->
+        <!--<th>Port type</th>-->
+        <!--<th>Last updated</th>-->
+        <!--<th>Ipv4 address</th>-->
+        <!--<th>Ipv4 mask</th>-->
+        <!--<th>Isis support</th>-->
+        <!--<th>Mapped physical interface id</th>-->
+        <!--<th>Mapped physical interface name</th>-->
+        <!--<th>Native vlan id</th>-->
+        <!--<th>Ospf support</th>-->
+        <!--<th>PID</th>-->
+        <!--<th>Serial no</th>-->
+        <!--<th>Series</th>-->
+        <!--<th>Device id</th>-->
+        <!--<th>Vlan id</th>-->
+        <!--<th>If index</th>-->
+        <!--<th>Speed</th>-->
+        <!--<th>Instance uuid</th>-->
+        <!--<th>Id</th>-->
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="interfata in interfete">
-        <td>{{ interfata.portMode }}</td>
-        <td>{{ interfata.portType }}</td>
-        <td>{{ interfata.interfaceType }}</td>
-        <td>{{ interfata.status }}</td><
-        <td>{{ interfata.lastUpdated }}</td>
         <td>{{ interfata.portName }}</td>
-        <td>{{ interfata.ipv4Address }}</td>
-        <td>{{ interfata.ipv4Mask }}</td>
-        <td>{{ interfata.isisSupport }}</td>
-        <td>{{ interfata.mappedPhysicalInterfaceId }}</td>
-        <td>{{ interfata.mappedPhysicalInterfaceName }}</td>
-        <td>{{ interfata.nativeVlanId }}</td>
-        <td>{{ interfata.ospfSupport }}</td>
-        <td>{{ interfata.pid }}</td>
-        <td>{{ interfata.serialNo }}</td>
-        <td>{{ interfata.series }}</td>
-        <td>{{ interfata.deviceId }}</td>
-        <td>{{ interfata.duplex }}</td>
-        <td>{{ interfata.vlanId }}</td>
-        <td>{{ interfata.ifIndex }}</td>
-        <td>{{ interfata.speed }}</td>
         <td>{{ interfata.macAddress }}</td>
-        <td>{{ interfata.instanceUuid }}</td>
-        <td>{{ interfata.id }}</td>
+        <td>{{ interfata.status }}</td><
+        <td>{{ interfata.duplex }}</td>
+        <!--<td>{{ interfata.portMode }}</td>-->
+        <!--<td>{{ interfata.portType }}</td>-->
+        <!--<td>{{ interfata.interfaceType }}</td>-->
+        <!--<td>{{ interfata.lastUpdated }}</td>-->
+        <!--<td>{{ interfata.ipv4Address }}</td>-->
+        <!--<td>{{ interfata.ipv4Mask }}</td>-->
+        <!--<td>{{ interfata.isisSupport }}</td>-->
+        <!--<td>{{ interfata.mappedPhysicalInterfaceId }}</td>-->
+        <!--<td>{{ interfata.mappedPhysicalInterfaceName }}</td>-->
+        <!--<td>{{ interfata.nativeVlanId }}</td>-->
+        <!--<td>{{ interfata.ospfSupport }}</td>-->
+        <!--<td>{{ interfata.pid }}</td>-->
+        <!--<td>{{ interfata.serialNo }}</td>-->
+        <!--<td>{{ interfata.series }}</td>-->
+        <!--<td>{{ interfata.deviceId }}</td>-->
+        <!--<td>{{ interfata.vlanId }}</td>-->
+        <!--<td>{{ interfata.ifIndex }}</td>-->
+        <!--<td>{{ interfata.speed }}</td>-->
+        <!--<td>{{ interfata.instanceUuid }}</td>-->
+        <!--<td>{{ interfata.id }}</td>-->
     </tr>
     </tbody>
 </table>

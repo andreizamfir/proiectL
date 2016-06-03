@@ -1,0 +1,26 @@
+<div id="tabel1" class="bitacoratable">
+    <table id="tabel1" class="childgrid">
+        <th>BUSSINES_RELEVANT</th>
+        <tr ng-repeat="app in relevant" class="draggable_tr">
+            <td>{{app.appName}}</td>
+        </tr>
+    </table>
+</div>
+
+<div id="tabel2" class="bitacoratable">
+    <table id="tabel2" class="childgrid">
+        <th>DEFAULT</th>
+        <tr ng-repeat="app in default" class="draggable_tr">
+            <td>{{app.appName}}</td>
+        </tr>
+    </table>
+</div>
+
+<div id="tabel3" class="bitacoratable">
+    <table id="tabel3" class="childgrid">
+        <th>BUSSINES_IRELEVANT</th>
+        <tr ng-repeat="app in irrelevant" class="draggable_tr">
+            <td> {{ app.appName }} </td>
+        </tr>
+    </table>
+</div>

@@ -1,31 +1,55 @@
+<!--<div>-->
+<!--    <table class="table table-condensed ">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Host ip</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr ng-repeat="host in hosts">-->
+<!--            <td>{{ host.hostIp }}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--    <table align="center" class="table table-hover">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Device ip</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr ng-repeat="device in devices">-->
+<!--            <td>{{ device.ip }}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    <input type="text" ng-model="ip.sourceIP" placeholder="Source IP"/>-->
+<!--    <input type="text" ng-model="ip.destIP" placeholder="Destination IP"/>-->
+<!--    <button class="btn btn-success" ng-click="ruta(ip)">Arata ruta</button>-->
+<!--</div>-->
+
+
 <div>
-    <table class="table table-condensed ">
-        <thead>
-        <tr>
-            <th>Host ip</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="host in hosts">
-            <td>{{ host.hostIp }}</td>
-        </tr>
-        </tbody>
-    </table>
-    <table align="center" class="table table-hover">
-        <thead>
-        <tr>
-            <th>Device ip</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="device in devices">
-            <td>{{ device.ip }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <select ng-model="ip.sourceIP" required>
+        <option value="" disabled selected>IP sursa</option>
+        <option value="" disabled>Hosts</option>
+        <option ng-repeat="host in hosts" value="{{host.hostIp}}">{{ host.hostIp }}</option>
+        <option value="" disabled>Dispozitive</option>
+        <option ng-repeat="device in devices" value="{{device.ip}}">{{ device.ip }}</option>
+    </select>
 </div>
+
 <div>
-    <input type="text" ng-model="ip.sourceIP" placeholder="Source IP"/>
-    <input type="text" ng-model="ip.destIP" placeholder="Destination IP"/>
-    <button class="btn btn-success" ng-click="ruta(ip)">Arata ruta</button>
+    <select ng-model="ip.destIP" required>
+        <option value="" disabled selected>IP destinatie</option>
+        <option value="" disabled>Hosts</option>
+        <option ng-repeat="host in hosts" value="{{host.hostIp}}">{{ host.hostIp }}</option>
+        <option value="" disabled>Dispozitive</option>
+        <option ng-repeat="device in devices" value="{{device.ip}}">{{ device.ip }}</option>
+    </select>
 </div>
+
+<button class="btn btn-success" ng-click="ruta(ip)">Arata ruta</button>

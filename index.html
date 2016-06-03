@@ -3,21 +3,56 @@
     <head>
         <title>Aplicatie de administrare</title>
         
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
-        
-        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
         <script src="/node_modules/angular-route/angular-route.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+          
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
         
         <script src="node_modules/sweetalert/dist/sweetalert.min.js"></script> 
         <link rel="stylesheet" type="text/css" href="node_modules/sweetalert/dist/sweetalert.css">
 
         <script src="app.js"></script>
-        <!--<script src="controller/controllerManager.js"></script>-->
+        <script src="controllers/controllerAdministrator.js"></script>
+        <script src="controllers/controllerAngajati.js"></script>
+        <script src="controllers/controllerConfiguratie.js"></script>
+        <script src="controllers/controllerDispozitive.js"></script>
+        <script src="controllers/controllerDispozitivePolitica.js"></script>
+        <script src="controllers/controllerEroare.js"></script>
+        <script src="controllers/controllerHosts.js"></script>
+        <script src="controllers/controllerInterfete.js"></script>
+        <script src="controllers/controllerLogin.js"></script>
+        <script src="controllers/controllerManager.js"></script>
+        <script src="controllers/controllerPolitica.js"></script>
+        <script src="controllers/controllerRegister.js"></script>
+        <script src="controllers/controllerRuta.js"></script>
+        <script src="servicii/getSetId.js"></script>
+        <script src="servicii/getSetName.js"></script>
+        <script src="servicii/getSetPolicyTag.js"></script>
+        <script src="servicii/getSetType.js"></script>
+
     </head>
     <body>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js" data-main="js/app">
+            $(function() {
+    $( "ul.droptrue" ).sortable({
+      connectWith: "ul"
+    });
+ 
+    $( "ul.dropfalse" ).sortable({
+      connectWith: "ul",
+      dropOnEmpty: false
+    });
+ 
+    $( "#sortable1, #sortable2, #sortable3" ).disableSelection();
+  });
+  console.log("incarcat")
+        </script>
         <div ng-view></div>
     </body>
 </html>

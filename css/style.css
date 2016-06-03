@@ -66,4 +66,19 @@ td{
 .button:hover {
     background-color: #4CAF50;
     color: white;
-}
+}*/
+
+.bitacoratable {
+            height: 400px;
+            overflow-y: auto;
+            width: 220px;
+            float:left;
+        }
+#table1 {
+   margin-right: 100px;
+        }
+        .childgrid tr { cursor: pointer; }
+        .selectedRow, .selectedRow:active, .childgrid tr:active {
+            background-color: #E7E7E7;
+            cursor: move;
+        }

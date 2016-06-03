@@ -1,0 +1,15 @@
+<h1>Lista dispozitivelor prezente in scope-ul politicii {{ tag }}</h1>
+<table align="center" class="table table-hover" style="width:auto">
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>IP</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="device in devices">
+        <td>{{ device.deviceName }}</td>
+        <td>{{ device.deviceIp }}</td>
+    </tr>
+    </tbody>
+</table>
