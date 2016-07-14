@@ -1,42 +1,44 @@
-<table id="devices" align="center" class="table table-hover"  style="width:auto">
+<table id="devices" align="center" class="table table-hover" style="width:auto">
     <thead>
-    <tr>
-        <th>Host IP</th>
-        <th>Host MAC</th>
-        <th>Host type</th>
-        <th>Connected network device IP address</th>
-        <th>Connected interface name</th>
-        <!--<th>Id</th>-->
-        <!--<th>Connected network device id</th>-->
-        <!--<th>Connected AP MAC address</th>-->
-        <!--<th>Connected AP name</th>-->
-        <!--<th>VLAN id</th>-->
-        <!--<th>Last updated</th>-->
-        <!--<th>Avg Update Frequency</th>-->
-        <!--<th>Source</th>-->
-        <!--<th>Point of presence</th>-->
-        <!--<th>Point of Attachment</th>-->
-    </tr>
+        <tr>
+            <th>Host IP</th>
+            <th>Host MAC</th>
+            <th>Host type</th>
+            <th>Connected network device IP address</th>
+            <th>Connected interface name</th>
+            <!--<th>Id</th>-->
+            <!--<th>Connected network device id</th>-->
+            <!--<th>Connected AP MAC address</th>-->
+            <!--<th>Connected AP name</th>-->
+            <!--<th>VLAN id</th>-->
+            <!--<th>Last updated</th>-->
+            <!--<th>Avg Update Frequency</th>-->
+            <!--<th>Source</th>-->
+            <!--<th>Point of presence</th>-->
+            <!--<th>Point of Attachment</th>-->
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="host in hosts">
-        <td>{{ host.hostIp }}</td>
-        <td>{{ host.hostMac }}</td>
-        <td>{{ host.hostType }}</td>
-        <td>{{ host.connectedNetworkDeviceIpAddress }}</td>
-        <td>{{ host.connectedInterfaceName }}</td>
-        <!--<td>{{ host.id }}</td>-->
-        <!--<td>{{ host.connectedNetworkDeviceId }}</td>-->
-        <!--<td>{{ host.connectedAPMacAddress }}</td>-->
-        <!--<td>{{ host.connectedAPName }}</td>-->
-        <!--<td>{{ host.vlanId }}</td>-->
-        <!--<td>{{ host.lastUpdated }}</td>-->
-        <!--<td>{{ host.avgUpdateFrequency }}</td>-->
-        <!--<td>{{ host.source }}</td>-->
-        <!--<td>{{ host.pointOfPresence }}</td>-->
-        <!--<td>{{ host.pointOfAttachment }}</td>-->
-    </tr>
+        <tr ng-repeat="host in hosts">
+            <td>{{ host.hostIp }}</td>
+            <td>{{ host.hostMac }}</td>
+            <td>{{ host.hostType }}</td>
+            <td>{{ host.connectedNetworkDeviceIpAddress }}</td>
+            <td>{{ host.connectedInterfaceName }}</td>
+            <!--<td>{{ host.id }}</td>-->
+            <!--<td>{{ host.connectedNetworkDeviceId }}</td>-->
+            <!--<td>{{ host.connectedAPMacAddress }}</td>-->
+            <!--<td>{{ host.connectedAPName }}</td>-->
+            <!--<td>{{ host.vlanId }}</td>-->
+            <!--<td>{{ host.lastUpdated }}</td>-->
+            <!--<td>{{ host.avgUpdateFrequency }}</td>-->
+            <!--<td>{{ host.source }}</td>-->
+            <!--<td>{{ host.pointOfPresence }}</td>-->
+            <!--<td>{{ host.pointOfAttachment }}</td>-->
+        </tr>
     </tbody>
 </table>
 
-<button class="btn btn-info" ng-click="inapoi('/login')">Inapoi</button>
+<div class="inapoi">
+    <button class="btn btn-info btn-large btn-block" ng-click="inapoi('/login')">Inapoi</button>    
+</div>

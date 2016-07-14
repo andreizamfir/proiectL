@@ -1,26 +1,143 @@
-<div id="tabel1" class="bitacoratable">
-    <table id="tabel1" class="childgrid">
-        <th>BUSSINES_RELEVANT</th>
-        <tr ng-repeat="app in relevant" class="draggable_tr">
-            <td>{{app.appName}}</td>
-        </tr>
+<h1>Politica {{ tag }}</h1>
+
+<!--<div id="tabel1" class="bitacoratable">-->
+<!--    <table id="tabel1" class="childgrid">-->
+<!--        <th>Relevante</th>-->
+<!--        <tr ng-repeat="app in relevant" class="draggable_tr">-->
+<!--            <td>{{app.appName}}</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<div id="tabel2" class="bitacoratable">-->
+<!--    <table id="tabel2" class="childgrid">-->
+<!--        <th>Implicite</th>-->
+<!--        <tr ng-repeat="app in default" class="draggable_tr">-->
+<!--            <td>{{app.appName}}</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<div id="tabel3" class="bitacoratable">-->
+<!--    <table id="tabel3" class="childgrid">-->
+<!--        <th>Irelevante</th>-->
+<!--        <tr ng-repeat="app in irrelevant" class="draggable_tr">-->
+<!--            <td> {{ app.appName }} </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+
+
+<!--<div id="relevant"style="display: none">-->
+<!--    <select ng-model="app.br" required>-->
+<!--        <option value="" disabled selected>Bussines relevant</option>-->
+<!--        <option ng-repeat="app in relevant" value="{{app.appName}}">{{ app.appName }}</option>-->
+<!--    </select>-->
+<!--</div>-->
+
+<!--<div id="irrelevant" style="display: none">-->
+<!--    <select ng-model="app.bir" required>-->
+<!--        <option value="" disabled selected>Bussines irrelevant</option>-->
+<!--        <option ng-repeat="app in irrelevant" value="{{app.appName}}">{{ app.appName }}</option>-->
+<!--    </select>-->
+<!--</div>-->
+
+<!--<div id="default" style="display: none">-->
+<!--    <select ng-model="app.bd" required >-->
+<!--        <option value="" disabled selected>Bussines relevant</option>-->
+<!--        <option ng-repeat="app in default" value="{{app.appName}}">{{ app.appName }}</option>-->
+<!--    </select>-->
+<!--</div>-->
+
+<!--<div id="noApps">-->
+<!--    <h3>Aplicatii</h3>-->
+<!--    <div id="table">-->
+<!--        <div id="aplicatii">-->
+<!--            <select id="selectAplicatii" ng-model="app.aplicatie" multiple required size="30" style="width: 200px">-->
+<!--        <option value="" disabled selected>Aplicatii</option>-->
+<!--        <option ng-repeat="app in aplicatii" value="{{app}}">{{ app.name }}</option>-->
+<!--      </select>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    <select ng-model="app.domain" required>-->
+<!--        <option value="" disabled selected>Domain</option>-->
+<!--        <option ng-repeat="domeniu in domains" value="{{domeniu.tip}}">{{ domeniu.tip }}</option>-->
+<!--    </select>-->
+<!--</div>-->
+
+<!--<button ng-click='save(app)'>Introdu</button>-->
+<!--<button class="btn btn-info" ng-click="inapoi('/politici')">Inapoi</button>-->
+
+
+
+<div id="container">
+<div>
+    <table class="table table-borderless" id="tabelStructura" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>Aplicatii relevante</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="app in relevant">
+                <td class="filterable-cell">{{ app.appName }}</td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
-<div id="tabel2" class="bitacoratable">
-    <table id="tabel2" class="childgrid">
-        <th>DEFAULT</th>
-        <tr ng-repeat="app in default" class="draggable_tr">
-            <td>{{app.appName}}</td>
-        </tr>
+<div>
+    <table class="table table-borderless" id="tabelStructura" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>Aplicatii implicite</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="app in default">
+                <td class="filterable-cell">{{ app.appName }}</td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
-<div id="tabel3" class="bitacoratable">
-    <table id="tabel3" class="childgrid">
-        <th>BUSSINES_IRELEVANT</th>
-        <tr ng-repeat="app in irrelevant" class="draggable_tr">
-            <td> {{ app.appName }} </td>
-        </tr>
+<div>
+    <table class="table table-borderless" id="tabelStructura" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>Aplicatii irelevante</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="app in irrelevant">
+                <td class="filterable-cell">{{ app.appName }}</td>
+            </tr>
+        </tbody>
     </table>
+</div>
+
+<div id="aplicatii">
+    <h4>Aplicatii</h4>
+    <select  id="myselect" class="multiselect-container" ng-model="app.aplicatie" multiple required size="15">
+        <option ng-repeat="app in aplicatii" value="{{app}}">{{ app.name }}</option>
+    </select>
+</select>
+</div>
+
+<div>
+    <select ng-model="app.domain" required>
+        <option value="" disabled selected>Domain</option>
+        <option ng-repeat="domeniu in domains" value="{{domeniu.tip}}">{{ domeniu.tip }}</option>
+    </select>
+    <br />
+    <button class="btn btn-warning btn-block btn-large" ng-click='save(app)'>Introdu</button>
+</div>
+
+</div>
+
+<div class="inapoi">
+    <button class="btn btn-info btn-block btn-large" ng-click="inapoi('/politici')">Inapoi</button>
 </div>

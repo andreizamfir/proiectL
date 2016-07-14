@@ -1,65 +1,105 @@
 <table align="center" class="table table-hover" style="width:auto">
     <thead>
-    <tr>
-        <th>Nume</th>
-        <th>Adresa IP</th>
-        <th>Tip</th>
-        <th>Status</th>
-    </tr>
+        <tr>
+            <th></th>
+            <th id="nume">Nume</th>
+            <th>Adresa IP</th>
+            <th>Tip</th>
+            <th>Status</th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="device in devices">
-        <td style="display: none">{{ device.id }}</td>
-        <td>{{ device.hostname }}</td>
-        <td>{{ device.ip }}</td>
-        <td>{{ device.type }}</td>
-        <td>{{ device.status }}</td>
-        <td><button class="btn btn-primary" ng-click="config('/configuratieDispozitiv', device.id)">Configuratie ios</button></td>
-        <td><button class="btn btn-primary" ng-click="interface('/interfeteDispozitiv', device.id)">Interfete</button></td>
-    </tr>
+        <tr ng-repeat="device in devices">
+            <td><button class="btn btn-info" ng-click="arataDetalii('/detaliiDispozitiv', device.id)" data-toggle="modal" data-target="#modalDetalii">Detalii</button></td>
+            <td>{{ device.hostname }}</td>
+            <td>{{ device.adresaIP }}</td>
+            <td>{{ device.tip }}</td>
+            <td>{{ device.status }}</td>
+            <td><button class="btn btn-primary" ng-click="config('/configuratieDispozitiv', device.id)" data-toggle="modal" data-target="#myModal">Configuratie ios</button></td>
+            <td><button class="btn btn-warning" ng-click="interface('/interfeteDispozitiv', device.id)">Interfete</button></td>
+        </tr>
     </tbody>
 </table>
 
-
-<h1 id="listaPolitici" style="display: none">Lista politicilor</h1>
-<div id="politici" style="display: none">
-    <table align="center" class="table table-hover" style="width:auto">
-        <thead>
-        <tr>
-            <th>Numele politicii</th>
-            <th>Dispozitivele in care este introdusa</th>
-            <th>Structura politicii</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="politica in politici">
-            <td>{{ politica.policyTag }}</td>
-            <td><button class="btn btn-info" ng-click="dispozitivePolitica('/dispozitivePolitica', politica.policyTag)">Dispozitive</button></td>
-            <td><button class="btn btn-info" ng-click="structuraPolitica('/politica', politica.policyTag)">Aplicatii</button></td>
-        </tr>
-        </tbody>
-    </table>
-    <input type="text" ng-model="politica.gamaPolitica" placeholder="Nume politica"/>
-    <button class="btn btn-success" ng-click="adauga(politica)">Adauga politica</button>
+<div class="inapoi">
+    <button class="btn btn-info btn-large btn-block" id="logoutInginer" ng-click="inapoi('/login')">Inapoi</button>
 </div>
 
-<br></br>
-
-<div id="asociere" style="display: none">
-    <!--<input type="text" ng-model="politica.numePolitica" placeholder="Nume politica"/>-->
-    
-    <select ng-model="politica.numePolitica" required>
-        <option value="" disabled>Politica</option>
-        <option ng-repeat="politica in politici" value="{{politica.policyTag}}">{{ politica.policyTag }}</option>
-    </select>
-    <select ng-model="politica.idDispozitiv" required>
-        <option value="" disabled>Dispozitiv</option>
-        <option ng-repeat="device in devices" value="{{device.id}}">{{ device.ip }}</option>
-    </select>
-    <!--<input type="text" ng-model="politica.idDispozitiv" placeholder="Id dispozitiv"/>-->
-<button class="btn btn-info" ng-click="adaugaScopeDispozitiv(politica)">Adauga politica in dispozitiv</button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" align="center">Configuratie</h4>
+      </div>
+      <div class="modal-body">
+        <p id="rezultat"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div>
-<button class="btn btn-info" ng-click="inapoi('/login')">Inapoi</button>
+<div class="modal fade" id="modalDetalii" tabindex="-1" role="dialog" aria-labelledby="myModalDetalii">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalDetalii" align="center">Detalii</h4>
+      </div>
+      <div class="modal-body">
+        <table align="center" class="table table-bordered table-striped" style="width:auto">
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Nume</th>
+        <td class="detaliiTabel">{{ detalii.hostname }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Adresa IP</th>
+        <td class="detaliiTabel">{{ detalii.adresaIP }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Tip</th>
+        <td class="detaliiTabel">{{ detalii.tip }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Uptime</th>
+        <td class="detaliiTabel">{{ detalii.upTime }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Adresa MAC</th>
+        <td class="detaliiTabel">{{ detalii.adresaMAC }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Versiune Software</th>
+        <td class="detaliiTabel">{{ detalii.versiuneSoftware }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Familie</th>
+        <td class="detaliiTabel">{{ detalii.familieDevice }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Rol</th>
+        <td class="detaliiTabel">{{ detalii.rol }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Numar Serie</th>
+        <td class="detaliiTabel">{{ detalii.numarSerie }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Last updated</th>
+        <td class="detaliiTabel">{{ detalii.lastUpdated }}</td>
+    </tr>
+    <tr class="detaliiTabel">
+        <th class="detaliiTabel">Status</th>
+        <td class="detaliiTabel">{{ detalii.status }}</td>
+    </tr>
+</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

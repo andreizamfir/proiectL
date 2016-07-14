@@ -1,0 +1,56 @@
+<div class="aplicatie">
+    <h1>Modificare aplicatie</h1>
+    <form name="modificareAplicatie" class="form-signin" ng-submit="modificare(valori)">
+
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="valori.name" placeholder="Nume" disabled>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="valori.helpString" placeholder="Help string">
+        </div>
+
+        <div class="form-group">
+            <select ng-model="valori.trafficClass" class="form-control" required>
+                <option disabled value="">Clasa de trafic</option>
+                <option value="BULK_DATA">Bulk Data</option>
+                <option value="OPS_ADMIN_MGMT">OPS Admin MGMT</option>
+                <option value="MULTIMEDIA_CONFERENCING">Conferencing Multimedia</option>
+                <option value="MULTIMEDIA_STREAMING">Streaming Multimedia</option>
+                <option value="TRANSACTIONAL_DATA">Transactional Data</option>
+                <option value="SIGNALING">Signaling</option>
+                <option value="NETWORK_CONTROL">Network Control</option>
+                <option value="VOIP_TELEPHONY">Voice Over IP Telephony</option>
+                <option value="REAL_TIME_INTERACTIVE">Real Time Interactive</option>
+                <option value="BROADCAST_VIDEO">Broadcast Video</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <p class="protocolFolosit">Protocol folosit</p>
+            <form role="form">
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="val.appProtocol" name="optradio" value="udp">UDP</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="val.appProtocol" name="optradio" value="tcp">TCP</label>
+                </div>
+            </form>
+        <div class="form-group">
+            <input type="number" class="form-control" ng-model="valori.portFolosit" min="0" max="65535" placeholder="Numar port" required>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="valori.longDescription" placeholder="Descriere">
+        </div>
+            <div class="form-group">
+            <select ng-model="valori.categoryId" class="form-control" required>
+                <option disabled value="">Categorie</option>
+                <option ng-repeat="categorie in categorii" value="{{categorie.id}}">{{ categorie.name }}</option>
+            </select>
+        </div>
+        <button class="btn btn-large btn-success btn-block" type="submit">Modificare</button>
+        <button class="btn btn-large btn-danger btn-block" ng-click="inapoi('/aplicatiiCustom')">Inapoi</button>
+    </form>
+</div>

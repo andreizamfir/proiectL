@@ -1,9 +1,11 @@
-<h1> THIS IS THE ADMINISTRATOR PAGE </h1>
-<p>
-    Administrator: {{ name }}
-</p>
-<button class="btn btn-warning" ng-click="dispozitive('/listaDispozitive')">Dispozitive</button>
-<button class="btn btn-danger" ng-click="hosts('/listaHosts')">Hosts</button>
-<button class="btn btn-success" ng-click="hosts('/analizaRuta')">Rute</button>
-<button class="btn btn-primary" ng-click="politici('/politici')">Politici</button>
-<button class="btn btn-info" ng-click="inapoi('/login')">Inapoi</button>
+<h1> Bun venit, {{ name }} (administrator) </h1>
+
+<div class="administrator">
+    <button class="btn btn-block btn-large btn-success" ng-click="dispozitive('/listaDispozitive')">Dispozitive</button>
+    <button class="btn btn-block btn-large btn-success" ng-click="hosts('/listaHosts')">Hosts</button>
+    <button class="btn btn-block btn-large btn-success" ng-click="hosts('/analizaRuta')">Rute</button>
+    <button class="btn btn-block btn-large btn-info" ng-click="politici('/politici')">Politici</button>
+    <button class="btn btn-block btn-large btn-warning" ng-click="creareAplicatie('/creareAplicatie')">Aplicatie Noua</button>
+    <button class="btn btn-block btn-large btn-warning" ng-click="aplicatii('/aplicatiiCustom')">Aplicatii Custom</button>
+    <button class="btn btn-block btn-large btn-danger" ng-click="inapoi('/login')">Logout</button>
+</div>

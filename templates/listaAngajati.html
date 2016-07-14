@@ -1,31 +1,30 @@
-<p>
-    The manager is {{ name }}
-</p>
 <div>
     <table align="center" class="table table-hover" style="width:auto">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nume angajat</th>
-            <th>Email</th>
-            <th>Pozitia detinuta</th>
-            <th>Motiv schimbare in functie</th>
-            <th>Data angajarii</th>
-        </tr>
+            <tr>
+                <th></th>
+                <th>Nume angajat</th>
+                <th>Email</th>
+                <th>Pozitia detinuta</th>
+                <th>Motiv schimbare in functie</th>
+                <th>Data angajarii</th>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="employee in employees">
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.type }}</td>
-            <td>{{ employee.modificare }}</td>
-            <td>{{ employee.createdAt }}</td>
-            <td><button class="btn btn-success" ng-click="promovare(employee.id)">Promovare</button></td>
-            <td><button class="btn btn-danger" ng-click="retrogradare(employee.id)">Retrogradare</button></td>
-        </tr>
+            <tr ng-repeat="angajat in angajati">
+                <td><img ng-click="detalii('/comenziAngajat',angajat.id)" src="/media/butonDetalii.png" /></td>
+                <td>{{ angajat.nume }}</td>
+                <td>{{ angajat.email }}</td>
+                <td>{{ angajat.tip }}</td>
+                <td>{{ angajat.modificare }}</td>
+                <td>{{ angajat.createdAt }}</td>
+                <td><img ng-click="promovare(angajat.id)" src="/media/butonPromovare.png" /></td>
+                <td><img ng-click="retrogradare(angajat.id)" src="/media/butonRetrogradare.png" /></td>
+            </tr>
         </tbody>
     </table>
 </div>
 
-<button class="btn btn-primary" ng-click="inapoi('/paginaManager')">Inapoi</button>
+<div class="inapoi">
+    <button class="btn btn-info btn-large btn-block" id="logoutInginer" ng-click="inapoi('/login')">Inapoi</button>
+</div>

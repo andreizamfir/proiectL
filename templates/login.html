@@ -1,15 +1,9 @@
-<div>
-    <div>
-        <div>
-            <h1>Sign in to continue to the app</h1>
-            <div>
-                <form>
-                    <input type="text" ng-model="username" placeholder="Username" required autofocus>
-                    <input type="password" ng-model="passworkd" placeholder="Password" required>
-                    <button type="submit" ng-click="login(username, passworkd)">Sign in</button>
-                    <button ng-click="register('/register')">Register</button>
-                </form>
-            </div>
-        </div>
-    </div>
+<div class="login">
+    <h1>Login</h1>
+    <form>
+        <input type="text" name="u" ng-model="username" placeholder="Username" required="required" autofocus/>
+        <input type="password" name="p" ng-model="parola" placeholder="Password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large" ng-click="login(username, parola)">Sign in</button>
+        <button class="btn btn-warning btn-block btn-large" ng-click="register('/register')">Register</button>
+    </form>
 </div>

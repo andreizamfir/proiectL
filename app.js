@@ -1,5 +1,4 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMessages']);
-var SERVER = 'https://proiect-licenta-andreizamfir16.c9users.io'
 
 myApp.config(['$routeProvider',
   function($routeProvider) {
@@ -24,9 +23,20 @@ myApp.config(['$routeProvider',
         templateUrl: 'templates/listaAngajati.html',
         controller: 'controllerAngajati'
       })
+      .when('/comenziAngajat', {
+        templateUrl: 'templates/listaComenzi.html',
+        controller: 'controllerComenzi'
+      })
       .when('/listaDispozitive', {
         templateUrl: 'templates/listaDispozitive.html',
         controller: 'controllerDispozitive'
+      })
+      .when('/detaliiDispozitiv', {
+        templateUrl: 'templates/detaliiDispozitiv.html',
+        controller: 'controllerDetaliiDispozitiv'
+      })
+      .otherwise({
+	      redirectTo: '/eroare'
       })
       .when('/listaHosts', {
         templateUrl: 'templates/listaHosts.html',
@@ -48,22 +58,37 @@ myApp.config(['$routeProvider',
         templateUrl: 'templates/dispozitivePolitica.html',
         controller: 'controllerDispozitivePolitica'
       })
+      .when('/politici', {
+        templateUrl: 'templates/listaPolitici.html',
+        controller: 'controllerPolitici'
+      })
       .when('/politica',{
         templateUrl: 'templates/structuraPolitica.html',
         controller: 'controllerPolitica'
       })
+      .when('/creareAplicatie', {
+        templateUrl: 'templates/paginaAplicatie.html',
+        controller: 'controllerAplicatie'
+      })
+      .when('/aplicatiiCustom', {
+        templateUrl: 'templates/listaAplicatiiCustom.html',
+        controller: 'controllerAplicatiiCustom'
+      })
+      .when('/modificareAplicatie', {
+        templateUrl: 'templates/modificareAplicatie.html',
+        controller: 'controllerModificareAplicatie'
+      })
       .when('/eroare', {
         templateUrl: 'templates/paginaEroare.html',
         controller: 'controllerEroare'
-      })
-      .otherwise({
-	      redirectTo: '/eroare'
       })
 }])
 
 
 
 //TODO
-//rute - sa scot ip-urile care incep cu 207
-//sa inserez jquery in controllerPolitica
-//buton de creare aplicatie
+//adaugarea de comenzi pt politici
+
+//structura politica
+
+//de sters controllerere si templateurile care nu imi mai folosesc (configuratie, detalii)

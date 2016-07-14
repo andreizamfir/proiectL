@@ -1,0 +1,25 @@
+<h2 id="comenziH">
+    Comenzile angajatului {{ comenzi[0].numeAngajat }}
+</h2>
+<div id="divComenzi">
+    <table class="table" id="tabelComenzi">
+        <thead>
+            <tr>
+                <th>Comanda</th>
+                <th>Data</th>
+                <th>Ora</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="comanda in comenzi">
+                <td>{{ comanda.secventa }}</td>
+                <td>{{ comanda.data }}</td>
+                <td>{{ comanda.ora }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="inapoi">
+    <button class="btn btn-info btn-large btn-block" ng-click="inapoi('/listaAngajati')">Inapoi</button>
+</div>

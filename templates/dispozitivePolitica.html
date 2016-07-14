@@ -1,15 +1,21 @@
 <h1>Lista dispozitivelor prezente in scope-ul politicii {{ tag }}</h1>
 <table align="center" class="table table-hover" style="width:auto">
     <thead>
-    <tr>
-        <th>Nume</th>
-        <th>IP</th>
-    </tr>
+        <tr>
+            <th></th>
+            <th>Nume</th>
+            <th>IP</th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="device in devices">
-        <td>{{ device.deviceName }}</td>
-        <td>{{ device.deviceIp }}</td>
-    </tr>
+        <tr ng-repeat="dispozitiv in dispozitive">
+            <td><img src="/media/deleteButton.png" ng-click="stergeDispozitiv(dispozitiv.deviceId)"/></td>
+            <td>{{ dispozitiv.deviceName }}</td>
+            <td>{{ dispozitiv.deviceIp }}</td>
+        </tr>
     </tbody>
 </table>
+
+<div class="inapoi">
+    <button class="btn btn-info" ng-click="inapoi('/politici')">Inapoi</button>
+</div>

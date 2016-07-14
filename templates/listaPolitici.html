@@ -1,0 +1,138 @@
+<h1 id="listaPolitici" >Lista politicilor</h1>
+<div>
+    <table class="table table-borderless" id="tabelPolitici" align="center" class="table table-hover" style="width:70%">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Numele politicii</th>
+            <th>Dispozitivele in care este introdusa</th>
+            <th>Structura politicii</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="politica in politici">
+            <td><img src="media/deleteButton.png" ng-click="stergeTag(politica.policyTag)" /></td>
+            <td>{{ politica.policyTag }}</td>
+            <td><button class="btn btn-info" ng-click="arataDispozitive('/dispozitivePolitica', politica.policyTag)" data-toggle="modal" data-target="#modalDispozitive">Dispozitive</button></td>
+            <td><button class="btn btn-info" ng-click="structuraPolitica('/politica', politica.policyTag)">Aplicatii</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <br></br>
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-6">
+        <div class="politica">
+            <input type="text" ng-model="politica.tagPolitica" placeholder="Nume politica"/>
+            <button class="btn btn-success btn-block btn-large" ng-click="adaugaTag(politica)">Adauga tag de politica</button>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="politica">
+        <select ng-model="politica.numePolitica" required>
+            <option value="" disabled>Politica</option>
+            <option ng-repeat="politica in politici" value="{{politica.policyTag}}">{{ politica.policyTag }}</option>
+        </select>
+        <select ng-model="politica.idDispozitiv" required>
+            <option value="" disabled>Dispozitiv</option>
+            <option ng-repeat="dispozitiv in dispozitive" value="{{dispozitiv.id}}">{{ dispozitiv.adresaIP }}</option>
+        </select>
+        <button class="btn btn-warning btn-block btn-large" ng-click="adaugaTagDispozitiv(politica)">Adauga politica in dispozitiv</button>
+        <br></br>
+        <button class="btn btn-info btn-block btn-large" ng-click="inapoi('/paginaAdministrator')">Inapoi</button>
+    </div>
+    </div>
+        </div>
+    </div>
+    <!--<div class="politica">-->
+    <!--    <input type="text" ng-model="politica.tagPolitica" placeholder="Nume politica"/>-->
+    <!--    <button class="btn btn-success btn-block btn-large" ng-click="adaugaTag(politica)">Adauga politica</button>    -->
+    <!--</div>-->
+</div>
+
+<br></br>
+<!--<div id="containerOptiuni">-->
+    
+    <!--<div class="politica">-->
+    <!--    <select ng-model="politica.numePolitica" required>-->
+    <!--        <option value="" disabled>Politica</option>-->
+    <!--        <option ng-repeat="politica in politici" value="{{politica.policyTag}}">{{ politica.policyTag }}</option>-->
+    <!--    </select>-->
+    <!--</div>-->
+
+    <!--<div class="politica">-->
+    <!--    <select ng-model="politica.idDispozitiv" required>-->
+    <!--        <option value="" disabled>Dispozitiv</option>-->
+    <!--        <option ng-repeat="dispozitiv in dispozitive" value="{{dispozitiv.id}}">{{ dispozitiv.adresaIP }}</option>-->
+    <!--    </select>-->
+    <!--    <button class="btn btn-warning btn-block btn-large" ng-click="adaugaTagDispozitiv(politica)">Adauga politica in dispozitiv</button>-->
+    <!--</div>-->
+
+<!--</div>-->
+
+
+
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-xs-4">-->
+<!--           <div class="politica">-->
+<!--            <select ng-model="politica.numePolitica" required>-->
+<!--                <option value="" disabled>Politica</option>-->
+<!--                <option ng-repeat="politica in politici" value="{{politica.policyTag}}">{{ politica.policyTag }}</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        <div class="col-xs-4">-->
+<!--            <div class="politica">-->
+<!--            <select ng-model="politica.idDispozitiv" required>-->
+<!--                <option value="" disabled>Dispozitiv</option>-->
+<!--                <option ng-repeat="dispozitiv in dispozitive" value="{{dispozitiv.id}}">{{ dispozitiv.adresaIP }}</option>-->
+<!--            </select>-->
+<!--            <br></br>-->
+<!--            <button class="btn btn-warning btn-block btn-large" ng-click="adaugaTagDispozitiv(politica)">Adauga politica in dispozitiv</button>-->
+<!--    </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<br></br>-->
+
+<div class="inapoi">
+    <!--<button class="btn btn-info btn-block btn-large" ng-click="inapoi('/paginaAdministrator')">Inapoi</button>-->
+</div>
+
+
+
+<div class="modal fade" id="modalDispozitive" tabindex="-1" role="dialog" aria-labelledby="myModalDispozitive">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalDispozitive" align="center">Lista dispozitivelor prezente in scope-ul politicii {{ tag }}</h4>
+      </div>
+      <div class="modal-body">
+        <table align="center" class="table table-striped table-bordered" style="width:auto" id="tabelDispozitive">
+            <thead>
+                <tr class="detaliiTabel">
+                    <th></th>
+                    <th class="detaliiTabel">Nume</th>
+                    <th class="detaliiTabel">IP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="dispozitiv in dispozitivePolitica" class="detaliiTabel">
+                    <td class="detaliiTabel"><img src="/media/deleteButton.png" ng-click="stergeDispozitiv(dispozitiv.deviceId)"/></td>
+                    <td class="detaliiTabel">{{ dispozitiv.deviceName }}</td>
+                    <td class="detaliiTabel">{{ dispozitiv.deviceIp }}</td>
+                </tr>
+            </tbody>
+        </table
+        
+        <br/> <p id="pDispozitive">Politica {{ tag }} nu este introdusa in niciun dispozitiv</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
