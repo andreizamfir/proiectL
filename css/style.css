@@ -530,6 +530,46 @@ table {
     height: 450px;
     overflow-y: auto;
 }
+#tabelPolitici thead,
+#tabelPolitici tbody,
+#tabelPolitici tr,
+#tabelPolitici td,
+#tabelPolitici th {
+    display: block;
+}
+#tabelPolitici tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+#tabelPolitici thead th {
+    height: 30px;
+}
+#tabelPolitici tbody {
+    height: 300px;
+    overflow-y: auto;
+}
+#tabelPolitici tbody td:first-child,
+#tabelPolitici thead th:first-child{
+    width: 10%;
+    float: left;
+}
+#tabelPolitici tbody td:nth-child(2),
+#tabelPolitici thead th:nth-child(2){
+    width: 25%;
+    float: left;
+}
+#tabelPolitici tbody td:nth-child(3),
+#tabelPolitici thead th:nth-child(3){
+    width: 45%;
+    float: left;
+}
+#tabelPolitici tbody td:last-child,
+#tabelPolitici thead th:last-child{
+    width: 20%;
+    float: left;
+}
 .stop-scrolling {
   height: 100%;
   overflow: hidden;

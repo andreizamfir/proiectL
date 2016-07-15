@@ -16,7 +16,7 @@ angular.module('myApp').controller('controllerPolitici', ['$scope', '$http', '$l
             } else {
                 document.getElementById("tabelDispozitive").style.display = 'table'
                 document.getElementById("pDispozitive").style.display = 'none'
-               getSetPolicyTag.setTag(policyTag)
+                getSetPolicyTag.setTag(policyTag)
             }
         })
     }
@@ -207,6 +207,7 @@ angular.module('myApp').controller('controllerPolitici', ['$scope', '$http', '$l
                     }
                 })
             })
+            refreshDispozitive($scope.tag)
         }
         $scope.structuraPolitica = function(path, policyTag) {
             getSetPolicyTag.setTag(policyTag)

@@ -31,20 +31,12 @@ myApp.config(['$routeProvider',
         templateUrl: 'templates/listaDispozitive.html',
         controller: 'controllerDispozitive'
       })
-      .when('/detaliiDispozitiv', {
-        templateUrl: 'templates/detaliiDispozitiv.html',
-        controller: 'controllerDetaliiDispozitiv'
-      })
       .otherwise({
 	      redirectTo: '/eroare'
       })
       .when('/listaHosts', {
         templateUrl: 'templates/listaHosts.html',
         controller: 'controllerHosts'
-      })
-      .when('/configuratieDispozitiv', {
-        templateUrl: 'templates/configuratieDispozitiv.html',
-        controller: 'controllerConfiguratie'
       })
       .when('/interfeteDispozitiv', {
         templateUrl: 'templates/interfeteDispozitiv.html',
@@ -53,10 +45,6 @@ myApp.config(['$routeProvider',
       .when('/analizaRuta', {
         templateUrl: 'templates/rutaDispozitive.html',
         controller: 'controllerRuta'
-      })
-      .when('/dispozitivePolitica', {
-        templateUrl: 'templates/dispozitivePolitica.html',
-        controller: 'controllerDispozitivePolitica'
       })
       .when('/politici', {
         templateUrl: 'templates/listaPolitici.html',
@@ -83,12 +71,3 @@ myApp.config(['$routeProvider',
         controller: 'controllerEroare'
       })
 }])
-
-
-
-//TODO
-//adaugarea de comenzi pt politici
-
-//structura politica
-
-//de sters controllerere si templateurile care nu imi mai folosesc (configuratie, detalii)

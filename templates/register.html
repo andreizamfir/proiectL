@@ -1,146 +1,68 @@
-<!--<div class="container">-->
-<!--    <div class="row">-->
-<!--        <div class="col-sm-6 col-md-4 col-md-offset-4">-->
-<!--            <h1 class="text-center login-title">Inregistrare angajat</h1>-->
-<!--            <div>-->
-<!--                <div class="account-wall">-->
-<!--                    <form name="registerForm" class="form-signin" ng-submit="register('/login', val)">-->
-
-<!--                        <div class="form-group" ng-class="{'has-error': registerForm.name.$touched && registerForm.name.$invalid }">-->
-<!--                            <input type="text" name="name" class="form-control" ng-model="val.name" placeholder="Nume" required autofocus>-->
-<!--                            <div ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched">-->
-<!--                                <div ng-message="required">-->
-<!--                                    <p style="color: red">Acest camp este obligatoriu</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="form-group" ng-class="{'has-error': registerForm.employeeEmail.$touched && registerForm.employeeEmail.$invalid }">-->
-<!--                            <input type="email" name="employeeEmail" class="form-control" ng-model="val.email" placeholder="Email" required>-->
-<!--                            <div ng-messages="registerForm.employeeEmail.$error" ng-show="registerForm.employeeEmail.$touched">-->
-<!--                                <div ng-message="required">-->
-<!--                                    <p style="color: red">Acest camp este obligatoriu</p>-->
-<!--                                </div>-->
-<!--                                <div ng-message="email">-->
-<!--                                    <p style="color: red">Acest email este invalid</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="form-group" ng-class="{'has-error': registerForm.parola.$touched && registerForm.parola.$invalid }">-->
-<!--                            <input type="password" name="parola" class="form-control" ng-model="val.password" ng-minlength="6" ng-maxlength="30" placeholder="Parola intre 6 si 30 de caractere" required>-->
-<!--                            <div ng-messages="registerForm.parola.$error" ng-show="registerForm.parola.$touched">-->
-<!--                                <div ng-message="required">-->
-<!--                                    <p style="color: red">Acest camp este obligatoriu</p>-->
-<!--                                </div>-->
-<!--                                <div ng-message="minlength">-->
-<!--                                    <p style="color: red">Parola trebuie sa fie mai lunga de 6 caractere!</p>-->
-<!--                                </div>-->
-<!--                                <div ng-message="maxlength">-->
-<!--                                    <p style="color: red">Parola trebuie sa fie mai scurta de 30 de caractere!</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="form-group" ng-class="{'has-error': registerForm.parolaAgain.$touched && registerForm.parolaAgain.$invalid }">-->
-<!--                            <input type="password" name="parolaAgain" class="form-control" ng-model="val.passwordAgain" placeholder="Reintroduceti parola" required>-->
-<!--                            <div ng-messages="registerForm.parolaAgain.$error" ng-show="registerForm.parolaAgain.$touched">-->
-<!--                                <div ng-message="required">-->
-<!--                                    <p style="color: red">Acest camp este obligatoriu</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="form-group" ng-class="{'has-error': registerForm.tip.$touched && registerForm.tip.$invalid }">-->
-<!--                            <select name="tip" ng-model="val.type" class="form-control" required>-->
-<!--                            <option disabled value="">Tip</option>-->
-<!--                            <option value="1">Administrator</option>-->
-<!--                            <option value="2">Inginer</option>-->
-<!--                            <option value="3">Tehnician</option>-->
-<!--                        </select>-->
-<!--                            <div ng-messages="registerForm.tip.$error" ng-show="registerForm.tip.$touched">-->
-<!--                                <div ng-message="required">-->
-<!--                                    <p style="color: red">Acest camp este obligatoriu</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <button class="btn btn-lg btn-success btn-block" type="submit">Inregistrare</button>-->
-<!--                        <button class="btn btn-lg btn-danger btn-block" ng-click="back('/login')">Inapoi</button>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="register">
     <h1>Inregistrare angajat</h1>
-        <form name="registerForm" class="form-signin" ng-submit="register('/login', val)">
+    <form name="registerForm" class="form-signin" ng-submit="register('/login', val)">
 
-            <div class="form-group" ng-class="{'has-error': registerForm.name.$touched && registerForm.name.$invalid }">
-                <input type="text" name="name" ng-model="val.name" placeholder="Nume" required autofocus>
-                            <div ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched">
-                                <div ng-message="required">
-                                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group" ng-class="{'has-error': registerForm.employeeEmail.$touched && registerForm.employeeEmail.$invalid }">
-                            <input type="email" name="employeeEmail" ng-model="val.email" placeholder="Email" required>
-                            <div ng-messages="registerForm.employeeEmail.$error" ng-show="registerForm.employeeEmail.$touched">
-                                <div ng-message="required">
-                                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
-                                </div>
-                                <div ng-message="email">
-                                    <p style="color: #ffa71b">Acest email este invalid</p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="form-group" ng-class="{'has-error': registerForm.name.$touched && registerForm.name.$invalid }">
+            <input type="text" name="name" ng-model="val.name" placeholder="Nume" required autofocus>
+            <div ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched">
+                <div ng-message="required">
+                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
+                </div>
+            </div>
+        </div>
 
 
-                        <div class="form-group" ng-class="{'has-error': registerForm.parola.$touched && registerForm.parola.$invalid }">
-                            <input type="password" name="parola" ng-model="val.password" ng-minlength="6" ng-maxlength="30" placeholder="Parola intre 6 si 30 de caractere" required>
-                            <div ng-messages="registerForm.parola.$error" ng-show="registerForm.parola.$touched">
-                                <div ng-message="required">
-                                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
-                                </div>
-                                <div ng-message="minlength">
-                                    <p style="color: #ffa71b">Parola trebuie sa fie mai lunga de 6 caractere!</p>
-                                </div>
-                                <div ng-message="maxlength">
-                                    <p style="color: #ffa71b">Parola trebuie sa fie mai scurta de 30 de caractere!</p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="form-group" ng-class="{'has-error': registerForm.employeeEmail.$touched && registerForm.employeeEmail.$invalid }">
+            <input type="email" name="employeeEmail" ng-model="val.email" placeholder="Email" required>
+            <div ng-messages="registerForm.employeeEmail.$error" ng-show="registerForm.employeeEmail.$touched">
+                <div ng-message="required">
+                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
+                </div>
+                <div ng-message="email">
+                    <p style="color: #ffa71b">Acest email este invalid</p>
+                </div>
+            </div>
+        </div>
 
-                        <div class="form-group" ng-class="{'has-error': registerForm.parolaAgain.$touched && registerForm.parolaAgain.$invalid }">
-                            <input type="password" name="parolaAgain" ng-model="val.passwordAgain" placeholder="Reintroduceti parola" required>
-                            <div ng-messages="registerForm.parolaAgain.$error" ng-show="registerForm.parolaAgain.$touched">
-                                <div ng-message="required">
-                                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group" ng-class="{'has-error': registerForm.tip.$touched && registerForm.tip.$invalid }">
-                            <select name="tip" ng-model="val.type" required>
-                                <option disabled value="">Tip</option>
-                                <option value="1">Administrator</option>
-                                <option value="2">Inginer</option>
-                                <option value="3">Tehnician</option>
-                            </select>
-                            <div ng-messages="registerForm.tip.$error" ng-show="registerForm.tip.$touched">
-                                <div ng-message="required">
-                                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="form-group" ng-class="{'has-error': registerForm.parola.$touched && registerForm.parola.$invalid }">
+            <input type="password" name="parola" ng-model="val.password" ng-minlength="6" ng-maxlength="30" placeholder="Parola intre 6 si 30 de caractere" required>
+            <div ng-messages="registerForm.parola.$error" ng-show="registerForm.parola.$touched">
+                <div ng-message="required">
+                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
+                </div>
+                <div ng-message="minlength">
+                    <p style="color: #ffa71b">Parola trebuie sa fie mai lunga de 6 caractere!</p>
+                </div>
+                <div ng-message="maxlength">
+                    <p style="color: #ffa71b">Parola trebuie sa fie mai scurta de 30 de caractere!</p>
+                </div>
+            </div>
+        </div>
 
-                        <button class="btn btn-large btn-success btn-block" type="submit">Inregistrare</button>
-                        <button class="btn btn-large btn-info btn-block" ng-click="back('/login')">Inapoi</button>
+        <div class="form-group" ng-class="{'has-error': registerForm.parolaAgain.$touched && registerForm.parolaAgain.$invalid }">
+            <input type="password" name="parolaAgain" ng-model="val.passwordAgain" placeholder="Reintroduceti parola" required>
+            <div ng-messages="registerForm.parolaAgain.$error" ng-show="registerForm.parolaAgain.$touched">
+                <div ng-message="required">
+                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': registerForm.tip.$touched && registerForm.tip.$invalid }">
+            <select name="tip" ng-model="val.type" required>
+                <option disabled value="">Tip</option>
+                <option value="1">Administrator</option>
+                <option value="2">Inginer</option>
+                <option value="3">Tehnician</option>
+            </select>
+            <div ng-messages="registerForm.tip.$error" ng-show="registerForm.tip.$touched">
+                <div ng-message="required">
+                    <p style="color: #ffa71b">Acest camp este obligatoriu</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-large btn-success btn-block" type="submit">Inregistrare</button>
+        <button class="btn btn-large btn-info btn-block" ng-click="back('/login')">Inapoi</button>
 </div>

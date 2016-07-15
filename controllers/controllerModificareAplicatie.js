@@ -61,7 +61,17 @@ angular.module('myApp').controller('controllerModificareAplicatie', ['$scope', '
             $http.get('/numeCategorie/'+val.categoryId).success(function(response){
                 val.category = response
             })
+            
+            if(protocol==null || protocol=="null")
+                console.log("este nul")
                 
+            if(protocol==null || protocol=="null")
+                swal({
+                    type: "error",
+                    title: "Eroare",
+                    text: "Trebuie selectat un protocol!"
+                })
+            else {
                 $http.get('/aplicatii/'+val.name).success(function(response){
                     var idServer = response
                     
@@ -90,9 +100,9 @@ angular.module('myApp').controller('controllerModificareAplicatie', ['$scope', '
                     
                         var array = new Array()
                         array.push(response)
-                        console.log("ARRAY: " + JSON.stringify(array))
+                        //console.log("ARRAY: " + JSON.stringify(array))
                     
-                        console.log("aplicatie.idServer: " + idServer)
+                        //console.log("aplicatie.idServer: " + idServer)
                         $http.put('/aplicatieServer/' + idServer, array).success(function(response){
                             if(response.progress == "UPDATE"){
                                 console.log(val)
@@ -111,14 +121,10 @@ angular.module('myApp').controller('controllerModificareAplicatie', ['$scope', '
             
                                 $location.path('/aplicatiiCustom')
                             }
-                        // else 
-                        //     swal({
-                        //         type: "error",
-                        //         text: "Eroare"
-                        //     })
                         })
                     })
                 })
+            }
     }
         $scope.inapoi = function(path){
         $location.path(path)
