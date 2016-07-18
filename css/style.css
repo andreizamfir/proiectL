@@ -262,6 +262,10 @@ label,
     letter-spacing: 1px;
     text-align: center;
 }
+
+#aplicatii{
+
+}
 .detaliiTabel,
 p {
     color: #000;
@@ -271,7 +275,7 @@ p {
 }
 input,
 select,
-option 
+option
 {
     width: 100%;
     margin-bottom: 10px;
@@ -297,7 +301,7 @@ input:focus {
 }
 .administrator {
     position: absolute;
-    top: 36%;
+    top: 41%;
     left: 50%;
     margin: -150px 0 0 -150px;
     width: 300px;
@@ -431,7 +435,7 @@ table {
     height: 30px;
 }
 #tabelAplicatii tbody {
-    height: 500px;
+    height: 350px;
     overflow-y: auto;
 }
 #tabelAplicatii tbody td:first-child,
@@ -471,6 +475,7 @@ table {
 #divAplicatii {
     width: 90%;
     margin: 0 auto;
+    margin-top: 30px;
 }
 .table tbody tr:hover td,
 .table tbody tr:hover th {
@@ -498,18 +503,28 @@ table {
     padding: 1em;
     width: 21%;
 }
+
+.col-md-2{
+  padding-top: 30px;
+}
+
 .table-borderless tbody tr td, .table-borderless tbody tr th {
     border: none !important;
 }
 .multiselect-container {
     overflow-x: hidden;
-    overflow-y: scroll; 
+    overflow-y: scroll;
 }
 
-#tabelStructura tbody td, #tabelStructura thead th{
+#tabelStructura tbody td, #tabelPolitici tbody td, #tabelPolitici thead th, #tabelStructura thead th{
     width:100%;
     float:left;
 }
+#tabelPolitici thead,
+#tabelPolitici tbody,
+#tabelPolitici tr,
+#tabelPolitici td,
+#tabelPolitici th,
 #tabelStructura thead,
 #tabelStructura tbody,
 #tabelStructura tr,
@@ -517,57 +532,38 @@ table {
 #tabelStructura th {
     display: block;
 }
-#tabelStructura tr:after {
+#tabelStructura tr:after, #tabelPolitici tr:after {
     content: ' ';
     display: block;
     visibility: hidden;
     clear: both;
 }
-#tabelStructura thead th {
+#tabelStructura thead th, #tabelPolitici thead th {
     height: 30px;
 }
 #tabelStructura tbody {
     height: 450px;
     overflow-y: auto;
 }
-#tabelPolitici thead,
-#tabelPolitici tbody,
-#tabelPolitici tr,
-#tabelPolitici td,
-#tabelPolitici th {
-    display: block;
-}
-#tabelPolitici tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-#tabelPolitici thead th {
-    height: 30px;
-}
 #tabelPolitici tbody {
     height: 300px;
     overflow-y: auto;
 }
 #tabelPolitici tbody td:first-child,
-#tabelPolitici thead th:first-child{
+#tabelPolitici thead th:first-child {
     width: 10%;
     float: left;
-}
+} 
 #tabelPolitici tbody td:nth-child(2),
-#tabelPolitici thead th:nth-child(2){
+#tabelPolitici thead th:nth-child(2),
+#tabelPolitici tbody td:last-child,
+#tabelPolitici thead th:last-child{
     width: 25%;
     float: left;
 }
 #tabelPolitici tbody td:nth-child(3),
-#tabelPolitici thead th:nth-child(3){
-    width: 45%;
-    float: left;
-}
-#tabelPolitici tbody td:last-child,
-#tabelPolitici thead th:last-child{
-    width: 20%;
+#tabelPolitici thead th:nth-child(3) {
+    width: 40%;
     float: left;
 }
 .stop-scrolling {
